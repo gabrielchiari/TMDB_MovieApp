@@ -70,9 +70,9 @@ fun MovieDetail(movie: Movie) {
                 color = Color.Black
             )
             Spacer(modifier = Modifier.height(8.dp))
-            movie.overview?.let { it1 ->
+            movie.overview?.let { it ->
                 Text(
-                    text = it1,
+                    text = it,
                     style = MaterialTheme.typography.body1,
                     color = Color.Gray
                 )
