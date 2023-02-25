@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import com.gabrielchiariapps.tmdbmovieapp.model.MovieResponse
+import com.gabrielchiariapps.tmdbmovieapp.model.Movie
 import com.gabrielchiariapps.tmdbmovieapp.ui.MovieDetail
 import com.gabrielchiariapps.tmdbmovieapp.ui.MovieList
 import com.gabrielchiariapps.tmdbmovieapp.viewmodel.MoviesViewModel
@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            val movies: List<MovieResponse> by viewModel.movies.observeAsState(emptyList())
+            val movies: List<Movie> by viewModel.movies.observeAsState(emptyList())
             val selectedMovie: Int? by viewModel.selectedMovie.observeAsState(null)
 
             if (selectedMovie != null) {

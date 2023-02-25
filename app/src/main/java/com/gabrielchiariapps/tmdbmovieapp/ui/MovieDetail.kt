@@ -1,5 +1,6 @@
 package com.gabrielchiariapps.tmdbmovieapp.ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -9,15 +10,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.gabrielchiariapps.tmdbmovieapp.model.MovieResponse
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.rememberImagePainter
+import com.gabrielchiariapps.tmdbmovieapp.model.Movie
 import com.gabrielchiariapps.tmdbmovieapp.viewmodel.MoviesViewModel
-import dev.chrisbanes.accompanist.glide.GlideImage
 
+@OptIn(ExperimentalCoilApi::class)
 @Composable
-fun MovieDetail(movie: MovieResponse) {
+fun MovieDetail(movie: Movie) {
     val viewModel: MoviesViewModel = viewModel()
 
     Scaffold(
@@ -46,13 +48,20 @@ fun MovieDetail(movie: MovieResponse) {
             modifier = Modifier.padding(it),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            GlideImage(
-                data = "https://image.tmdb.org/t/p/w500/${movie.posterPath}",
-                contentDescription = movie.title,
+            Image(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(400.dp),
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.Crop,
+                contentDescription = movie.title,
+                painter = rememberImagePainter(
+                    data = "https://image.tmdb.org/t/p/w500/${movie.posterPath}",
+                    builder = {
+                        crossfade(true)
+                        placeholder(com.gabrielchiariapps.tmdbmovieapp.R.drawable.placeholder_image)
+                        error(com.gabrielchiariapps.tmdbmovieapp.R.drawable.error_image)
+                    }
+                )
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(

@@ -2,7 +2,7 @@ package com.gabrielchiariapps.tmdbmovieapp.model
 
 import com.google.gson.annotations.SerializedName
 
-data class MovieResponse(
+data class Movie(
     @SerializedName("id") val id: Int,
     @SerializedName("title") val title: String,
     @SerializedName("overview") val overview: String?,
