@@ -5,9 +5,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -17,15 +17,43 @@ import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.gabrielchiariapps.tmdbmovieapp.R
 import com.gabrielchiariapps.tmdbmovieapp.model.Movie
+import com.gabrielchiariapps.tmdbmovieapp.viewmodel.MoviesViewModel
 
 @Composable
 fun MovieList(
     movies: List<Movie>,
-    onMovieSelected: (Movie) -> Unit,
+    viewModel: MoviesViewModel,
 ) {
-    LazyColumn(modifier = Modifier.fillMaxSize()) {
-        items(movies) { movie ->
-            MovieListItem(movie = movie, onMovieSelected = onMovieSelected)
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(text = "TMDbMovieApp")
+                },
+                actions = {
+                    IconButton(onClick = { viewModel.clearSelectedMovie() }) {
+                        Icon(Icons.Filled.Search, contentDescription = "Search Icon")
+                    }
+                },
+                backgroundColor = Color.Blue,
+                contentColor = Color.White,
+            )
+        },
+    ) {
+        Column(
+            modifier = Modifier
+                .padding(it)
+        ) {
+            SearchBar(onSearch = { text ->
+                viewModel.searchMovies(text)
+            })
+            LazyColumn(modifier = Modifier.fillMaxSize()) {
+                items(movies) { movie ->
+                    MovieListItem(movie = movie, onMovieSelected = { movie ->
+                        viewModel.setSelectedMovie(movie)
+                    })
+                }
+            }
         }
     }
 }
