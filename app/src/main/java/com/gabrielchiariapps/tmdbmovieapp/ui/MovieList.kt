@@ -15,6 +15,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
+import com.gabrielchiariapps.tmdbmovieapp.EndPoints
 import com.gabrielchiariapps.tmdbmovieapp.R
 import com.gabrielchiariapps.tmdbmovieapp.model.Movie
 import com.gabrielchiariapps.tmdbmovieapp.viewmodel.MoviesViewModel
@@ -76,7 +77,7 @@ fun MovieListItem(movie: Movie, onMovieSelected: (Movie) -> Unit) {
                 contentScale = ContentScale.Crop,
                 contentDescription = null,
                 painter = rememberImagePainter(
-                    data = "https://image.tmdb.org/t/p/w185/${movie.posterPath}",
+                    data = EndPoints.IMAGE_URL_POSTER + movie.posterPath,
                     builder = {
                         crossfade(true)
                         placeholder(R.drawable.placeholder_image)
