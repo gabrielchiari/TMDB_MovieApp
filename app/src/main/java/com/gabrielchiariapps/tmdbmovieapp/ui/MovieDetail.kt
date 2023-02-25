@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
+import com.gabrielchiariapps.tmdbmovieapp.EndPoints
 import com.gabrielchiariapps.tmdbmovieapp.model.Movie
 import com.gabrielchiariapps.tmdbmovieapp.viewmodel.MoviesViewModel
 
@@ -55,7 +56,7 @@ fun MovieDetail(movie: Movie) {
                 contentScale = ContentScale.Crop,
                 contentDescription = movie.title,
                 painter = rememberImagePainter(
-                    data = "https://image.tmdb.org/t/p/w500/${movie.posterPath}",
+                    data = EndPoints.IMAGE_URL_BACKDROP + movie.backdropPath,
                     builder = {
                         crossfade(true)
                         placeholder(com.gabrielchiariapps.tmdbmovieapp.R.drawable.placeholder_image)
